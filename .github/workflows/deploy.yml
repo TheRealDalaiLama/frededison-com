@@ -14,10 +14,10 @@ jobs:
         env:
           SSH_HOST: ${{ secrets.SSH_HOST }}
           SSH_USER: ${{ secrets.SSH_USER }}
-          DEST_ROOT: /srv/fred/www/frededison.org/public
+          DEST_ROOT: /srv/fred/www/frededison.com/public
         run: |
           SHA="${GITHUB_SHA}"
-          REL="/srv/fred/releases/frededison.org/$SHA"
+          REL="/srv/fred/releases/frededison.com/$SHA"
           ssh -i ~/.ssh/id_rsa $SSH_USER@$SSH_HOST "mkdir -p $REL"
           rsync -az --delete ./ $SSH_USER@$SSH_HOST:$REL/
           ssh -i ~/.ssh/id_rsa $SSH_USER@$SSH_HOST "ln -sfn $REL $DEST_ROOT/current && sudo systemctl reload nginx"
